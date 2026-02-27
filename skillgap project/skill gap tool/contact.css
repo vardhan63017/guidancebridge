@@ -1,0 +1,248 @@
+/* --- COLOR PALETTE --- */
+:root {
+  --bg-light: #f8f9fa;
+  --primary-dark: #192a56; /* Deep Navy Blue */
+  --accent-blue: #007bff; /* Bright Blue */
+  --accent-yellow: #ffc107;
+  --text-dark: #212529;
+  --shadow-light: rgba(0, 0, 0, 0.15);
+  --gradient-start: #e9f2f7;
+  --gradient-end: #f5f8fa;
+}
+
+/* --- GLOBAL STYLES & LAYOUT --- */
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* Soft gradient background matching the light theme */
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-end) 100%
+  );
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.text-muted {
+  color: #6c757d;
+  margin-bottom: 3rem;
+}
+
+/* --- 1. THE MAIN CONTACT CARD --- */
+
+.contact-card-wrapper {
+  /* Center the card vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.contact-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Deep shadow */
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+}
+
+.contact-card .row {
+  display: flex;
+  flex-wrap: wrap; /* Ensures columns stack on small screens */
+}
+
+/* --- 2. LEFT COLUMN (Branding/Info - Deep Navy) --- */
+
+.col-left {
+  background: var(--primary-dark);
+  color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 35%; /* Fixed width for attractive two-column split */
+}
+
+.col-left h3 {
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.col-left p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.col-left i {
+  color: var(--accent-yellow); /* Yellow accent for icons */
+  font-size: 1.1rem;
+}
+
+.col-left .border-top {
+  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+/* --- 3. RIGHT COLUMN (The Form Itself - White) --- */
+
+.col-right {
+  padding: 40px;
+  width: 65%;
+}
+
+.contact-form {
+  padding: 0;
+}
+
+/* --- 4. INTERACTIVE FLOATING INPUTS --- */
+
+.form-group-floating,
+.form-group textarea,
+.form-group select {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+/* Base style for all form controls */
+.contact-form input,
+.contact-form textarea,
+.contact-form select.form-select {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #c9d2d9;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 1rem;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+}
+
+/* Floating Label Style */
+.form-group-floating label {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #6c757d;
+  pointer-events: none;
+  background-color: white;
+  padding: 0 5px;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 500;
+  z-index: 2; /* Ensure label is above input content */
+}
+
+/* Floating Animation (When focused or content is present) */
+.form-group-floating input:focus ~ label,
+.form-group-floating input:not(:placeholder-shown) ~ label {
+  top: 0;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  color: var(--accent-blue);
+  font-weight: 600;
+  z-index: 3;
+}
+/* Ensure placeholder is invisible when label floats */
+.form-group-floating input::placeholder {
+  color: transparent;
+}
+.form-group-floating input:not(:focus)::placeholder {
+  color: #adb5bd;
+}
+
+/* Message Textarea (Non-floating label) */
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.form-group textarea + label {
+  /* Style for the non-floating message label */
+  position: relative;
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* Input Focus/Active Border */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+  outline: none;
+}
+
+/* --- SUBMIT BUTTON --- */
+.btn-navy-submit {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: var(--primary-dark);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(25, 42, 86, 0.3);
+}
+
+.btn-navy-submit:hover {
+  background: #2c447a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(25, 42, 86, 0.4);
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (min-width: 768px) {
+  /* Set column widths for desktop view */
+  .contact-card .col-left {
+    width: 35%;
+  }
+  .contact-card .col-right {
+    width: 65%;
+  }
+}
+@media (max-width: 767px) {
+  /* Stack columns on mobile */
+  .contact-card .col-left,
+  .contact-card .col-right {
+    width: 100%;
+    padding: 30px;
+  }
+  .contact-card .col-left {
+    border-radius: 16px 16px 0 0;
+  }
+  .contact-card .col-right {
+    padding-top: 15px;
+  }
+}

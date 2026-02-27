@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guidance Bridge - Mentor List</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- COLOR PALETTE (Based on your Light Theme) --- */
+      :root {
+        --bg-light: #f8f9fa;
+        --primary-dark: #192a56; /* Deep Navy Blue */
+        --accent-blue: #3498db; /* Standard Blue (for modals/calls) */
+        --accent-green: #27ae60; /* Success/Pay Green */
+        --accent-red: #e74c3c; /* Error/End Call Red */
+        --text-dark: #2c3e50;
+        --shadow-light: rgba(0, 0, 0, 0.15);
+        --chat-bg: #f0f0f0; /* Light gray chat background */
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #ecf0f1; /* Light background */
+        color: var(--text-dark);
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--primary-dark), #1a2530);
+        padding: 20px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      /* --- Tab Styles (B.Tech / Employee) --- */
+      .tabs {
+        margin: 25px;
+        text-align: center;
+      }
+      .tabs button {
+        padding: 14px 30px;
+        margin: 8px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        background: #bdc3c7;
+        color: white;
+        transition: all 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .tabs button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      .tabs button.active {
+        background: var(--accent-blue);
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+      }
+
+      /* --- Mentor Card Styles --- */
+      .details {
+        margin: 25px auto;
+        width: 90%;
+        max-width: 1100px;
+      }
+      .card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 25px 0;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+        flex-wrap: wrap;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+      .blur {
+        filter: blur(4px);
+        opacity: 0.6;
+      }
+      .profile {
+        text-align: center;
+        flex: 1;
+        min-width: 130px;
+      }
+      .profile img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        border: 4px solid var(--accent-blue);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        object-fit: cover;
+      }
+      .info {
+        flex: 3;
+        padding: 0 25px;
+        text-align: left;
+        min-width: 250px;
+      }
+      .info p {
+        margin: 8px 0;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .pay-section {
+        flex: 1;
+        text-align: center;
+        min-width: 130px;
+      }
+      .pay-btn {
+        padding: 14px 30px;
+        background: linear-gradient(135deg, var(--accent-green), #219150);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+      }
+      .pay-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(39, 174, 96, 0.4);
+      }
+
+      /* --- Modals (QR, Confirmation, Success) --- */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        width: 350px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+      }
+      .modal-content img {
+        width: 250px;
+        height: 250px;
+        border: 2px solid #eee;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .modal-content h2 {
+        color: var(--primary-dark);
+        margin-bottom: 20px;
+      }
+      .modal-content p {
+        font-size: 18px;
+        margin: 15px 0;
+        color: #34495e;
+      }
+      .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        background: transparent;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+        color: #666;
+      }
+      .confirmation-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .confirmation-buttons button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+      .confirmation-buttons .yes-btn {
+        background: var(--accent-green);
+        color: white;
+      }
+      .confirmation-buttons .no-btn {
+        background: var(--accent-red);
+        color: white;
+      }
+      .transaction-input {
+        width: 100%;
+        padding: 10px;
+        margin: 15px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      /* Success & Confirmation Message */
+      .success-msg,
+      .confirmation-msg {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        max-width: 450px;
+        width: 80%;
+      }
+      .success-msg h2,
+      .confirmation-msg h2 {
+        color: var(--accent-green);
+        margin-bottom: 20px;
+        font-size: 28px;
+      }
+      .success-msg .icon,
+      .confirmation-msg .icon {
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+      .confirmation-msg button {
+        background: var(--accent-blue);
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      /* --- Updated Chatbox --- */
+      .chatbox {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        width: 400px;
+        height: 500px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        overflow: hidden;
+        z-index: 999;
+      }
+      .chat-header {
+        background: linear-gradient(135deg, var(--accent-green), #128c7e);
+        color: white;
+        padding: 15px 20px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+      }
+      .chat-header .chat-title {
+        flex: 1;
+      }
+      .chat-header .chat-buttons {
+        display: flex;
+        gap: 10px;
+      }
+      .chat-header button {
+        padding: 8px 15px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .chat-header .call-btn {
+        background: var(--accent-blue);
+        color: white;
+      }
+      .chat-header .close-btn {
+        background: var(--accent-red);
+        color: white;
+      }
+      .chat-messages {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: var(--chat-bg);
+      }
+      .chat-input {
+        display: flex;
+        padding: 15px;
+        background: #fff;
+        border-top: 1px solid #ddd;
+      }
+      .chat-input input {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        outline: none;
+      }
+      .chat-input button {
+        background: var(--accent-green);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        margin-left: 10px;
+        width: 45px;
+        height: 45px;
+        cursor: pointer;
+      }
+      .message {
+        padding: 10px 15px;
+        border-radius: 18px;
+        max-width: 80%;
+        margin-bottom: 10px;
+      }
+      .user-message {
+        background: #dcf8c6;
+        margin-left: auto;
+      }
+      .mentor-message {
+        background: #ffffff;
+        margin-right: auto;
+        border: 1px solid #e0e0e0;
+      }
+
+      /* --- Call Interface --- */
+      .call-interface {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 1002;
+      }
+      .call-icon {
+        font-size: 60px;
+        color: var(--accent-blue);
+        animation: pulse 1.5s infinite;
+        margin: 20px 0;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .call-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .call-buttons button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .call-interface .end-call {
+        background: var(--accent-red);
+        color: white;
+      }
+      .call-interface .mute-call {
+        background: #f39c12;
+        color: white;
+      }
+
+      /* --- Call Limit Warning Mini Tab --- */
+      .call-limit-warning {
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--accent-red);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1003;
+        max-width: 300px;
+        animation: slideIn 0.3s ease-out;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateX(100px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .call-limit-warning h3 {
+        margin: 0 0 8px 0;
+        font-size: 16px;
+      }
+      .call-limit-warning p {
+        margin: 0;
+        font-size: 14px;
+      }
+      .call-limit-warning button {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+
+      /* --- Responsive Design --- */
+      @media (max-width: 768px) {
+        .card {
+          flex-direction: column;
+          text-align: center;
+        }
+        .info {
+          padding: 20px 0;
+        }
+        .pay-section {
+          margin-top: 15px;
+        }
+        .tabs button {
+          width: 80%;
+          margin: 8px 0;
+        }
+        .chatbox {
+          width: 90%;
+          right: 5%;
+          bottom: 10px;
+        }
+        .chat-header {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .call-limit-warning {
+          left: 20px;
+          right: 20px;
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header><h1>Guidance Bridge: Mentor Connect</h1></header>
+    <div class="tabs">
+      <button id="btechBtn" onclick="showDetails('btech')">
+        B.Tech Students
+      </button>
+      <button id="empBtn" onclick="showDetails('emp')">
+        Software Employees
+      </button>
+    </div>
+
+    <div id="btech" class="details">
+      <div class="card" id="Eadala Ramya">
+        <div class="profile">
+          <img src="./images/ram1.jpg" alt="mentor pic" />
+          <h3>Eadala Ramya</h3>
+        </div>
+        <div class="info">
+          <p><b>Branch:</b> Computer Science and Engineering</p>
+          <p>
+            <b>College:</b> Jawaharlal Nehru Technological University Hyderabad
+          </p>
+          <p><b>CGPA:</b> 8.7</p>
+          <p><b>Skills:</b> Java, Python, React</p>
+        </div>
+        <div class="pay-section">
+          <button class="pay-btn" onclick="openQR('Eadala Ramya')">
+            Pay 29/-
+          </button>
+        </div>
+      </div>
+      <div class="card" id="Dolai Vidya">
+        <div class="profile">
+          <img src="./images/vid.jpg" alt="" />
+          <h3>Dolai Vidya</h3>
+        </div>
+        <div class="info">
+          <p><b>Branch:</b> Electrical and Comuunication Engineering</p>
+          <p><b>College:</b> Andhra University</p>
+          <p><b>CGPA:</b> 8.2</p>
+          <p><b>Skills:</b> C, MATLAB, VHDL</p>
+        </div>
+        <div class="pay-section">
+          <button class="pay-btn" onclick="openQR('Dolai Vidya')">
+            Pay 29/-
+          </button>
+        </div>
+      </div>
+      <div class="card" id="K.S.Vardhan">
+        <div class="profile">
+          <img src="./images/ksv.jpg" alt="" />
+          <h3>K.S.Vardhan</h3>
+        </div>
+        <div class="info">
+          <p><b>Branch:</b> Computer Science and Engineering</p>
+          <p><b>College:</b> Vellore Institute of Technology</p>
+          <p><b>CGPA:</b> 9.2</p>
+          <p><b>Skills:</b> JS, React</p>
+        </div>
+        <div class="pay-section">
+          <button class="pay-btn" onclick="openQR('K.S.Vardhan')">
+            Pay 29/-
+          </button>
+        </div>
+      </div>
+      <div class="card" id="R.Sana">
+        <div class="profile">
+          <img src="./images/mvm.jpg" alt="" />
+          <h3>M.Venu Madhav</h3>
+        </div>
+        <div class="info">
+          <p><b>Branch:</b> Computer Science and Engineering</p>
+          <p><b>College:</b>Indian Institute of Technology Bombay</p>
+          <p><b>CGPA:</b> 8.9</p>
+          <p><b>Skills:</b> Python, AI/ML</p>
+        </div>
+        <div class="pay-section">
+          <button class="pay-btn" onclick="openQR('R.Sana')">Pay 29/-</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="emp" class="details">
+      <div class="card" id="Rahul Sharma">
+        <div class="profile">
+          <img src="./images/srinu.png" alt="" />
+          <h3>Dr.G.Srinivas</h3>
+        </div>
+        <div class="info">
+          <p><b>Role:</b> Software Engineer</p>
+          <p><b>Company:</b> Infosys</p>
+          <p><b>Experience:</b> 2 Years</p>
+          <p><b>Package:</b> 6 LPA</p>
+        </div>
+        <div class="pay-section">
+          <button class="pay-btn" onclick="openQR('G.Srinivas')">
+            Pay 59/-
+          </button>
+        </div>
+      </div>
+      <div class="card" id="Arjun Reddy">
+        <div class="profile">
+          <img src="./images/usha.png" alt="" />
+          <h3>Dr.V.Usha Bala</h3>
+        </div>
+        <div class="info">
+          <p><b>Role:</b> DevOps Engineer</p>
+          <p><b>Company:</b> TCS</p>
+          <p><b>Experience:</b> 3 Years</p>
+          <p><b>Package:</b> 7 LPA</p>
+        </div>
+        <div class="pay-section">
+          <button class="pay-btn" onclick="openQR('V.Usha Bala')">
+            Pay 59/-
+          </button>
+        </div>
+      </div>
+      <div class="card" id="Priya Metta">
+        <div class="profile">
+          <img src="./images/bhavani.png" alt="" />
+          <h3>Ms.S.A.Bhavani</h3>
+        </div>
+        <div class="info">
+          <p><b>Role:</b> QA Engineer</p>
+          <p><b>Company:</b> Cognizant</p>
+          <p><b>Experience:</b> 2 Years</p>
+          <p><b>Package:</b> 5 LPA</p>
+        </div>
+        <div class="pay-section">
+          <button class="pay-btn" onclick="openQR('S.A.Bhavani')">
+            Pay 59/-
+          </button>
+        </div>
+      </div>
+      <div class="card" id="Karthik Nair">
+        <div class="profile">
+          <img src="./images/bosu.png" alt="" />
+          <h3>Mr.S.Bosu Babu</h3>
+        </div>
+        <div class="info">
+          <p><b>Role:</b> Backend Developer</p>
+          <p><b>Company:</b> Infosys</p>
+          <p><b>Experience:</b> 4 Years</p>
+          <p><b>Package:</b> 7 LPA</p>
+        </div>
+        <div class="pay-section">
+          <button class="pay-btn" onclick="openQR('S.Bosu Babu')">
+            Pay 59/-
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="qrModal" class="modal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeQR()">✕</button>
+        <h2>Payment QR</h2>
+        <img id="qrImage" src="./images/myqr.jpg" alt="Payment QR Code" />
+        <p id="qrName"></p>
+        <p style="font-size: 13px; color: #7f8c8d; margin-top: 8px">
+          (Scan with your payment app. Then enter the transaction ID below.)
+        </p>
+        <input
+          type="text"
+          id="transactionIdInput"
+          class="transaction-input"
+          placeholder="Enter Transaction ID (e.g., 1234567890)"
+        />
+        <button class="yes-btn" onclick="confirmPayment()">
+          Confirm Payment
+        </button>
+      </div>
+    </div>
+
+    <div id="confirmationMsg" class="confirmation-msg">
+      <div class="icon">✅</div>
+      <h2>Payment Confirmed!</h2>
+      <p>Your payment to <span id="confirmationName"></span> was successful.</p>
+      <p>You can now start chatting with your mentor.</p>
+      <button onclick="openChat()">Start Chatting</button>
+    </div>
+
+    <div id="successMsg" class="success-msg">
+      <div class="icon">🎉</div>
+      <h2>Connection Successful!</h2>
+      <p>You are now connected to <span id="mentorName"></span>!</p>
+      <p>Loading chat interface... 💬</p>
+    </div>
+
+    <div id="callInterface" class="call-interface">
+      <div class="call-info" id="callCounter">Calls: 0/3</div>
+      <h2>Calling <span id="callName"></span>...</h2>
+      <div class="call-icon">📞</div>
+      <div class="call-duration" id="callDuration">Connecting...</div>
+      <div class="call-buttons">
+        <button class="mute-call" onclick="toggleMute()">🔇 Mute</button>
+        <button class="end-call" onclick="endCall()">📞 End Call</button>
+      </div>
+    </div>
+
+    <div id="callLimitWarning" class="call-limit-warning">
+      <h3>Call Limit Reached</h3>
+      <p>
+        You have used all your available credits for calls with this mentor.
+      </p>
+      <p>Please purchase more credits to continue.</p>
+      <button onclick="closeCallLimitWarning()">OK</button>
+    </div>
+
+    <div id="chatbox" class="chatbox">
+      <div class="chat-header">
+        <div class="chat-title">
+          Chat with <span id="chatMentorName"></span>
+        </div>
+        <div class="chat-buttons">
+          <button class="call-btn" id="callBtn" onclick="startCall()">
+            📞 Call (0/3)
+          </button>
+          <button class="close-btn" onclick="closeChat()">❌ Close</button>
+        </div>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input">
+        <input
+          type="text"
+          id="msgInput"
+          placeholder="Type a message..."
+          onkeypress="handleKeyPress(event)"
+        />
+        <button onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+
+    <script>
+      let currentMentor = "";
+      let isMuted = false;
+      let callTimer = null;
+      let callDuration = 0;
+      let callStartTime = null;
+      const MAX_CALLS = 1;
+      let mentorCallData = {}; // Stores per-mentor call counters
+
+      const allMentorNames = [
+        "Eadala Ramya",
+        "Dolai Vidya",
+        "K.S.Vardhan",
+        "M.Venu Madhav",
+        "G.Srinivas",
+        "V.Usha Bala",
+        "S.A.Bhavani",
+        "S.Bosu Babu",
+      ];
+
+      function initializeCallData() {
+        allMentorNames.forEach((mentor) => {
+          mentorCallData[mentor] = { callCount: 0, totalDuration: 0 };
+        });
+      }
+
+      /* --- Tab Switching Logic --- */
+      function showDetails(type) {
+        document.getElementById("btech").style.display = "none";
+        document.getElementById("emp").style.display = "none";
+        document.getElementById("btechBtn").classList.remove("active");
+        document.getElementById("empBtn").classList.remove("active");
+        document.getElementById(type).style.display = "block";
+        document.getElementById(type + "Btn").classList.add("active");
+      }
+
+      /* --- Payment/Modal Logic --- */
+      function openQR(name) {
+        currentMentor = name;
+
+        if (
+          mentorCallData[currentMentor] &&
+          mentorCallData[currentMentor].callCount >= MAX_CALLS
+        ) {
+          mentorCallData[currentMentor].callCount = 0;
+          updateCallButton();
+          alert(
+            `Your call count for ${currentMentor} has been reset to 0/${MAX_CALLS}. Please proceed with payment.`
+          );
+        }
+
+        document.getElementById("qrName").innerText = "Paying to " + name;
+
+        // Note: The QR code image is static. In a real app, this would be dynamic.
+        // It's not displaying because the file path is incorrect. Let's assume it's at `./images/myqr.jpeg`.
+        document.getElementById("qrImage").src = "./images/myqr.jpg";
+
+        document.getElementById("qrModal").style.display = "flex";
+      }
+
+      function closeQR() {
+        document.getElementById("qrModal").style.display = "none";
+      }
+
+      function confirmPayment() {
+        const transactionId =
+          document.getElementById("transactionIdInput").value;
+        if (transactionId.trim() === "") {
+          alert("Please enter a transaction ID to confirm payment.");
+          return;
+        }
+
+        // Simulate a successful payment and show the confirmation message
+        document.getElementById("qrModal").style.display = "none";
+        document.getElementById("confirmationName").innerText = currentMentor;
+        document.getElementById("confirmationMsg").style.display = "block";
+      }
+
+      /* --- Chat Initialization --- */
+      function openChat() {
+        document.getElementById("confirmationMsg").style.display = "none";
+        document.getElementById("mentorName").innerText = currentMentor;
+        document.getElementById("successMsg").style.display = "block";
+
+        document
+          .querySelectorAll(".card")
+          .forEach((card) => card.classList.remove("blur"));
+        document.querySelectorAll(".card").forEach((card) => {
+          if (card.id !== currentMentor) {
+            card.classList.add("blur");
+          }
+        });
+
+        setTimeout(() => {
+          document.getElementById("successMsg").style.display = "none";
+          document.getElementById("chatbox").style.display = "flex";
+          document.getElementById("chatMentorName").innerText = currentMentor;
+          updateCallButton();
+          addMessage("System", "Say Hello to " + currentMentor, false);
+        }, 1500);
+      }
+
+      function closeChat() {
+        document.getElementById("chatbox").style.display = "none";
+        document
+          .querySelectorAll(".card")
+          .forEach((card) => card.classList.remove("blur"));
+        document.getElementById("chatMessages").innerHTML = "";
+      }
+
+      /* --- Chat Messaging Logic --- */
+      function sendMessage() {
+        let input = document.getElementById("msgInput");
+        let msg = input.value.trim();
+        if (msg) {
+          addMessage("You", msg, true);
+          input.value = "";
+        }
+      }
+
+      function addMessage(sender, content, isUser) {
+        const chat = document.getElementById("chatMessages");
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${
+          isUser ? "user-message" : "mentor-message"
+        }`;
+        const contentP = document.createElement("p");
+        contentP.textContent = content;
+        messageDiv.appendChild(contentP);
+        chat.appendChild(messageDiv);
+        chat.scrollTop = chat.scrollHeight;
+      }
+
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+      }
+
+      /* --- Call Logic (Credit System) --- */
+      function updateCallButton() {
+        const callCount =
+          mentorCallData[currentMentor] &&
+          mentorCallData[currentMentor].callCount
+            ? mentorCallData[currentMentor].callCount
+            : 0;
+        document.getElementById(
+          "callBtn"
+        ).innerHTML = `📞 Call (${callCount}/${MAX_CALLS})`;
+      }
+
+      function startCall() {
+        if (!mentorCallData[currentMentor]) {
+          mentorCallData[currentMentor] = { callCount: 0, totalDuration: 0 };
+        }
+
+        if (mentorCallData[currentMentor].callCount >= MAX_CALLS) {
+          document.getElementById("callLimitWarning").style.display = "block";
+          return;
+        }
+
+        document.getElementById("callName").innerText = currentMentor;
+        document.getElementById("callInterface").style.display = "block";
+        document.getElementById("chatbox").style.filter = "blur(4px)";
+        updateCallCounter();
+
+        callStartTime = new Date();
+        callTimer = setInterval(updateCallDuration, 1000);
+      }
+
+      function updateCallCounter() {
+        const callCount = mentorCallData[currentMentor].callCount;
+        document.getElementById(
+          "callCounter"
+        ).textContent = `Calls: ${callCount}/${MAX_CALLS}`;
+      }
+
+      function updateCallDuration() {
+        const now = new Date();
+        callDuration = Math.floor((now - callStartTime) / 1000);
+        const minutes = Math.floor(callDuration / 60);
+        const seconds = callDuration % 60;
+        document.getElementById("callDuration").textContent = `${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      }
+
+      function endCall() {
+        clearInterval(callTimer);
+        document.getElementById("callInterface").style.display = "none";
+        document.getElementById("chatbox").style.filter = "none";
+
+        mentorCallData[currentMentor].callCount++;
+
+        const minutes = Math.floor(callDuration / 60);
+        const seconds = callDuration % 60;
+        addMessage(
+          "System",
+          `Call ended. Duration: ${minutes
+            .toString()
+            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.`,
+          false
+        );
+
+        callDuration = 0;
+        document.getElementById("callDuration").textContent = "00:00";
+        updateCallButton();
+
+        document
+          .querySelectorAll(".card")
+          .forEach((card) => card.classList.remove("blur"));
+      }
+
+      function toggleMute() {
+        isMuted = !isMuted;
+        const muteButton = document.querySelector(".mute-call");
+        muteButton.innerHTML = isMuted ? "🔊 Unmute" : "🔇 Mute";
+        muteButton.style.background = isMuted ? "#3498db" : "#f39c12";
+      }
+
+      function closeCallLimitWarning() {
+        document.getElementById("callLimitWarning").style.display = "none";
+      }
+
+      /* --- Initialization --- */
+      window.onload = function () {
+        initializeCallData();
+        showDetails("btech");
+      };
+    </script>
+  </body>
+</html>

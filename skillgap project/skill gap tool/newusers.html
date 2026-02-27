@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users Pending Verification - Guidance Bridge</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-light: #f8f9fa;
+        --primary-dark: #192a56;
+        --accent-blue: #007bff;
+        --accent-yellow: #ffc107;
+        --text-dark: #212529;
+        --shadow-light: rgba(0, 0, 0, 0.15);
+        --gradient-start: #e0f2f7;
+        --gradient-end: #f0f8fa;
+        --success-light: #d4edda;
+        --success-dark: #155724;
+        --warning-light: #fff3cd;
+        --warning-dark: #856404;
+        --danger-light: #f8d7da;
+        --danger-dark: #721c24;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text-dark);
+        background: linear-gradient(
+          135deg,
+          var(--gradient-start) 0%,
+          var(--gradient-end) 100%
+        );
+        background-attachment: fixed;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        font-weight: 800;
+        font-size: 1.8rem;
+        color: var(--primary-dark);
+        text-decoration: none;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        color: var(--accent-blue);
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 20px;
+        background: var(--primary-dark);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background: #2c447a;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(25, 42, 86, 0.3);
+      }
+
+      .back-btn i {
+        margin-right: 8px;
+      }
+
+      h1 {
+        text-align: center;
+        margin: 30px 0;
+        color: var(--primary-dark);
+        font-weight: 800;
+        font-size: 2.5rem;
+      }
+
+      .description {
+        text-align: center;
+        margin-bottom: 40px;
+        color: #6c757d;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-box {
+        flex: 1;
+        min-width: 250px;
+        position: relative;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 12px 15px 12px 45px;
+        border: 1px solid #c9d2d9;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+      }
+
+      .filter-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 10px 20px;
+        background: white;
+        border: 1px solid #c9d2d9;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--primary-dark);
+        color: white;
+        border-color: var(--primary-dark);
+      }
+
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 30px 0;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+        margin-bottom: 10px;
+      }
+
+      .stat-label {
+        font-size: 1rem;
+        color: #6c757d;
+      }
+
+      .user-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+
+      .user-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .user-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-header {
+        padding: 20px;
+        background: var(--primary-dark);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .role-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .role-college {
+        background-color: var(--warning-light);
+        color: var(--warning-dark);
+      }
+
+      .role-professional {
+        background-color: var(--success-light);
+        color: var(--success-dark);
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .user-info {
+        margin-bottom: 15px;
+      }
+
+      .user-info div {
+        margin-bottom: 8px;
+        display: flex;
+      }
+
+      .info-label {
+        font-weight: 600;
+        min-width: 120px;
+        color: #6c757d;
+      }
+
+      .info-value {
+        flex: 1;
+      }
+
+      .verification-status {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        background-color: var(--warning-light);
+        color: var(--warning-dark);
+      }
+
+      .verified {
+        background-color: var(--success-light);
+        color: var(--success-dark);
+      }
+
+      .card-footer {
+        padding: 15px 20px;
+        background: #f8f9fa;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .btn-approve {
+        background: var(--success-dark);
+        color: white;
+      }
+
+      .btn-approve:hover {
+        background: #0f4020;
+      }
+
+      .btn-reject {
+        background: var(--danger-dark);
+        color: white;
+      }
+
+      .btn-reject:hover {
+        background: #56181f;
+      }
+
+      .timestamp {
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+
+      .no-users {
+        text-align: center;
+        padding: 60px 20px;
+        color: #6c757d;
+        grid-column: 1 / -1;
+      }
+
+      .no-users i {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        color: #c9d2d9;
+      }
+
+      .no-users h3 {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .action-btn {
+        padding: 10px 20px;
+        background: white;
+        border: 1px solid #c9d2d9;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .action-btn.export {
+        background: var(--primary-dark);
+        color: white;
+      }
+
+      .action-btn.export:hover {
+        background: #2c447a;
+      }
+
+      .action-btn.clear {
+        background: #dc3545;
+        color: white;
+        border-color: #dc3545;
+      }
+
+      .action-btn.clear:hover {
+        background: #c82333;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .controls {
+          flex-direction: column;
+        }
+
+        .filter-buttons {
+          width: 100%;
+        }
+
+        .filter-btn {
+          flex: 1;
+          text-align: center;
+        }
+
+        .user-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a href="index.html" class="logo">
+          <i class="fas fa-graduation-cap"></i> Guidance Bridge
+        </a>
+        <a href="signuplist.html" class="back-btn">
+          <i class="fas fa-arrow-left"></i> View All Users
+        </a>
+      </header>
+
+      <h1>Users Pending Verification</h1>
+
+      <p class="description">
+        This page displays college mentors and professional mentors who have
+        submitted their details for verification. Administrators can review and
+        approve or reject these applications.
+      </p>
+
+      <div class="controls">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search users..." />
+        </div>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">
+            All Mentors
+          </button>
+          <button class="filter-btn" data-filter="College Mentor">
+            College Mentors
+          </button>
+          <button class="filter-btn" data-filter="Professional Mentor">
+            Professional Mentors
+          </button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number" id="totalUsers">0</div>
+          <div class="stat-label">Total Pending Verification</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="collegeMentorCount">0</div>
+          <div class="stat-label">College Mentors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="professionalMentorCount">0</div>
+          <div class="stat-label">Professional Mentors</div>
+        </div>
+      </div>
+
+      <div class="user-cards" id="usersContainer">
+        <!-- User cards will be populated here -->
+      </div>
+
+      <div class="actions">
+        <button class="action-btn export" onclick="exportToCSV()">
+          <i class="fas fa-download"></i> Export to CSV
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load users from localStorage
+        loadUsers();
+
+        // Set up search functionality
+        document
+          .getElementById("searchInput")
+          .addEventListener("input", filterUsers);
+
+        // Set up filter buttons
+        document.querySelectorAll(".filter-btn").forEach((button) => {
+          button.addEventListener("click", function () {
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach((btn) => btn.classList.remove("active"));
+            this.classList.add("active");
+            filterUsers();
+          });
+        });
+      });
+
+      let allUsers = [];
+      let pendingVerificationUsers = [];
+
+      function loadUsers() {
+        const usersJSON = localStorage.getItem("guidanceBridgeUsers");
+        allUsers = usersJSON ? JSON.parse(usersJSON) : [];
+
+        // Filter only college mentors and professional mentors
+        pendingVerificationUsers = allUsers.filter(
+          (user) =>
+            user.role === "College Mentor" ||
+            user.role === "Professional Mentor"
+        );
+
+        updateStats();
+        displayUsers(pendingVerificationUsers);
+      }
+
+      function updateStats() {
+        document.getElementById("totalUsers").textContent =
+          pendingVerificationUsers.length;
+        document.getElementById("collegeMentorCount").textContent =
+          pendingVerificationUsers.filter(
+            (u) => u.role === "College Mentor"
+          ).length;
+        document.getElementById("professionalMentorCount").textContent =
+          pendingVerificationUsers.filter(
+            (u) => u.role === "Professional Mentor"
+          ).length;
+      }
+
+      function displayUsers(users) {
+        const container = document.getElementById("usersContainer");
+
+        if (users.length === 0) {
+          container.innerHTML = `
+                    <div class="no-users">
+                        <i class="fas fa-user-check"></i>
+                        <h3>No users pending verification</h3>
+                        <p>All college mentors and professional mentors have been verified, or none have registered yet.</p>
+                    </div>
+                `;
+          return;
+        }
+
+        container.innerHTML = "";
+
+        users.forEach((user) => {
+          const card = document.createElement("div");
+          card.className = "user-card";
+
+          // Determine role badge class
+          let roleClass = "";
+          if (user.role === "College Mentor") roleClass = "role-college";
+          else if (user.role === "Professional Mentor")
+            roleClass = "role-professional";
+
+          card.innerHTML = `
+                    <div class="card-header">
+                        <span class="role-badge ${roleClass}">${
+            user.role
+          }</span>
+                        <span class="verification-status">Pending Verification</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="user-info">
+                            <div>
+                                <span class="info-label">Name:</span>
+                                <span class="info-value">${user.name}</span>
+                            </div>
+                            <div>
+                                <span class="info-label">Email:</span>
+                                <span class="info-value">${user.email}</span>
+                            </div>
+                            ${
+                              user.role === "College Mentor"
+                                ? `
+                                <div>
+                                    <span class="info-label">CGPA:</span>
+                                    <span class="info-value">${
+                                      user.cgpa || "Not provided"
+                                    }</span>
+                                </div>
+                            `
+                                : `
+                                <div>
+                                    <span class="info-label">Company:</span>
+                                    <span class="info-value">${
+                                      user.company || "Not provided"
+                                    }</span>
+                                </div>
+                                <div>
+                                    <span class="info-label">Role & Package:</span>
+                                    <span class="info-value">${
+                                      user.package || "Not provided"
+                                    }</span>
+                                </div>
+                            `
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="timestamp">Registered: ${
+                          user.timestamp
+                        }</div>
+                        <div class="action-buttons">
+                            <button class="btn btn-approve" onclick="approveUser('${
+                              user.email
+                            }')">Approve</button>
+                            <button class="btn btn-reject" onclick="rejectUser('${
+                              user.email
+                            }')">Reject</button>
+                        </div>
+                    </div>
+                `;
+
+          container.appendChild(card);
+        });
+      }
+
+      function filterUsers() {
+        const searchText = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const filter =
+          document.querySelector(".filter-btn.active").dataset.filter;
+
+        let filteredUsers = pendingVerificationUsers;
+
+        // Apply role filter
+        if (filter !== "all") {
+          filteredUsers = filteredUsers.filter((user) => user.role === filter);
+        }
+
+        // Apply search filter
+        if (searchText) {
+          filteredUsers = filteredUsers.filter(
+            (user) =>
+              user.name.toLowerCase().includes(searchText) ||
+              user.email.toLowerCase().includes(searchText) ||
+              (user.cgpa && user.cgpa.toLowerCase().includes(searchText)) ||
+              (user.company &&
+                user.company.toLowerCase().includes(searchText)) ||
+              (user.package && user.package.toLowerCase().includes(searchText))
+          );
+        }
+
+        displayUsers(filteredUsers);
+      }
+
+      function approveUser(email) {
+        if (confirm("Are you sure you want to approve this user?")) {
+          // In a real application, you would update the user's status in your database
+          // For this demo, we'll just remove them from the list
+          pendingVerificationUsers = pendingVerificationUsers.filter(
+            (user) => user.email !== email
+          );
+          updateStats();
+          displayUsers(pendingVerificationUsers);
+
+          alert("User approved successfully!");
+        }
+      }
+
+      function rejectUser(email) {
+        if (confirm("Are you sure you want to reject this user?")) {
+          // In a real application, you would update the user's status in your database
+          // For this demo, we'll just remove them from the list
+          pendingVerificationUsers = pendingVerificationUsers.filter(
+            (user) => user.email !== email
+          );
+          updateStats();
+          displayUsers(pendingVerificationUsers);
+
+          alert("User rejected successfully!");
+        }
+      }
+
+      function exportToCSV() {
+        if (pendingVerificationUsers.length === 0) {
+          alert("No users to export");
+          return;
+        }
+
+        let csvContent =
+          "Role,Name,Email,CGPA,Company,Package,Registration Date\n";
+
+        pendingVerificationUsers.forEach((user) => {
+          if (user.role === "College Mentor") {
+            csvContent += `"${user.role}","${user.name}","${user.email}","${
+              user.cgpa || ""
+            }","","","${user.timestamp}"\n`;
+          } else {
+            csvContent += `"${user.role}","${user.name}","${user.email}","","${
+              user.company || ""
+            }","${user.package || ""}","${user.timestamp}"\n`;
+          }
+        });
+
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", "pending_verification_users.csv");
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    </script>
+  </body>
+</html>

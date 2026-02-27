@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guidance Bridge - Mentor Platform</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light-bridge" data-bs-theme="light">
+      <div class="container-fluid">
+        <a class="navbar-brand text-primary-dark" href="#">
+          <i class="fas fa-graduation-cap me-2"></i> Guidance Bridge
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link text-primary-dark active"
+                aria-current="page"
+                href="index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-primary-dark" href="mentorlist.html"
+                >Mentor List</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link text-primary-dark dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                ABOUT US
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://linktr.ee/gouthamsankeerth"
+                    target="_blank"
+                    >Resource pdfs</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="contact.html" target="_blank"
+                    >contact us</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="adminindex.html"
+                    >Admin Login</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="d-flex ms-auto">
+            <a
+              href="form.html"
+              class="btn btn-warning sign-in-cta"
+              role="button"
+            >
+              Sign In / Register
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      id="heroCarousel"
+      class="carousel carousel-light slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+        ></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="8000">
+          <img
+            src="./images/slide3.png"
+            class="d-block w-100"
+            alt="Illustration of student gaining career clarity."
+          />
+          <div
+            class="carousel-caption d-none d-md-block carousel-caption-light-bg"
+          >
+            <h5>Stop Guessing, Start Growing. Get Real Clarity!</h5>
+            <p>
+              Direct guidance from verified college seniors and industry
+              professionals eliminates career confusion and misinformation.
+            </p>
+          </div>
+        </div>
+
+        <div class="carousel-item" data-bs-interval="8000">
+          <img
+            src="./images/slide2.png"
+            class="d-block w-100"
+            alt="Image of a confident student with mentor silhouettes."
+          />
+          <div
+            class="carousel-caption d-none d-md-block carousel-caption-light-bg"
+          >
+            <h5>Your Verified Support Network is Ready.</h5>
+            <p>
+              Connect with authenticated experts—college seniors for admissions,
+              and employees for placements & industry skills.
+            </p>
+          </div>
+        </div>
+
+        <div class="carousel-item" data-bs-interval="8000">
+          <img
+            src="./images/slide1.png"
+            class="d-block w-100"
+            alt="Graphic illustrating affordable mentorship credit system."
+          />
+          <div
+            class="carousel-caption d-none d-md-block carousel-caption-light-bg"
+          >
+            <h5>Affordable Guidance: Pay Per Session.</h5>
+            <p>
+              No costly subscriptions! Pay a small fee for limited credits
+              (chat/call) to get exactly the advice you need, when you need it.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#heroCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#heroCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!-- logos -->
+    <h2 class="section-heading text-primary-dark text-center mb-3">
+      Our Mentors Come From Your Dream Destinations
+    </h2>
+
+    <section class="py-4 bg-white-footer">
+      <div class="container text-center">
+        <div class="logo-scroll-wrapper">
+          <div class="row justify-content-center align-items-center logo-grid">
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/anits.webp"
+                alt="anits Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/dell.png"
+                alt="dell Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/gvp.webp"
+                alt="gvp Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/cisco.jpg"
+                alt="Cisco Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/cmr.jpg"
+                alt="CMR Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/intel.png"
+                alt="Intel Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/jntu.jpg"
+                alt="JNTU Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/gvp.webp"
+                alt="gvp Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/zoom.png"
+                alt="Zoom Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/gmr.webp"
+                alt="GMR Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/bombay.png"
+                alt="IIT Bombay Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/IIT-Kanpur.jpg"
+                alt="IIT Kanpur Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/khagarapur.webp"
+                alt="IIT Kharagpur Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+            <div class="col-4 col-md-2 mb-3">
+              <img
+                src="./images/bombay.png"
+                alt="IIT Bombay Logo"
+                class="img-fluid logo-item"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- logos -->
+    <section class="py-5 bg-feature-section">
+      <div class="container text-center">
+        <h2 class="section-title text-primary-dark mb-5">
+          Why Choose Guidance Bridge?
+        </h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <i class="fas fa-shield-alt feature-icon mb-3"></i>
+              <h3 class="feature-title">Verified Mentors</h3>
+              <p class="feature-text">
+                Profiles are vetted by our admin team (CGPA, employment proof)
+                to eliminate fake advice and misinformation.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <i class="fas fa-hand-holding-usd feature-icon mb-3"></i>
+              <h3 class="feature-title">Pay-Per-Session</h3>
+              <p class="feature-text">
+                No costly subscriptions. Pay a small fee for limited credits
+                (chat/call) to access guidance affordably.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <i class="fas fa-code-branch feature-icon mb-3"></i>
+              <h3 class="feature-title">Dual-Bridge Connection</h3>
+              <p class="feature-text">
+                Connect high schoolers to college students, and college students
+                to industry professionals.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container text-center">
+        <h2 class="section-title text-primary-dark mb-5">
+          Your Path to Clarity in 3 Simple Steps
+        </h2>
+        <div class="row justify-content-center how-it-works-flow">
+          <div class="col-md-4 col-sm-12 mb-4 how-it-works-step">
+            <div class="step-icon-wrapper mx-auto mb-3">
+              <i class="fas fa-search step-icon"></i>
+            </div>
+            <h4 class="step-title">1. Find Your Match</h4>
+            <p class="step-text">
+              Filter verified mentors by College, Branch, or Company in seconds.
+            </p>
+          </div>
+          <div
+            class="col-md-1 col-sm-12 d-flex align-items-center justify-content-center text-primary-dark how-it-works-arrow"
+          >
+            <i class="fas fa-arrow-right d-none d-md-block fa-2x"></i>
+            <i class="fas fa-arrow-down d-block d-md-none fa-2x"></i>
+          </div>
+          <div class="col-md-4 col-sm-12 mb-4 how-it-works-step">
+            <div class="step-icon-wrapper mx-auto mb-3">
+              <i class="fas fa-wallet step-icon"></i>
+            </div>
+            <h4 class="step-title">2. Acquire Credits</h4>
+            <p class="step-text">
+              Pay a small, one-time fee to load credits onto your account.
+            </p>
+          </div>
+          <div
+            class="col-md-1 col-sm-12 d-flex align-items-center justify-content-center text-primary-dark how-it-works-arrow"
+          >
+            <i class="fas fa-arrow-right d-none d-md-block fa-2x"></i>
+            <i class="fas fa-arrow-down d-block d-md-none fa-2x"></i>
+          </div>
+          <div class="col-md-4 col-sm-12 mb-4 how-it-works-step">
+            <div class="step-icon-wrapper mx-auto mb-3">
+              <i class="fas fa-comments step-icon"></i>
+            </div>
+            <h4 class="step-title">3.Connect Instantly</h4>
+            <p class="step-text">
+              Use 1 credit to start a dedicated chat or scheduled call session.
+            </p>
+          </div>
+        </div>
+        <a
+          href="mentor-list.html"
+          class="btn btn-warning btn-lg mt-4 start-journey-cta"
+          >Start Your Journey Now <i class="fas fa-arrow-right ms-2"></i
+        ></a>
+      </div>
+    </section>
+
+    <section class="py-5 bg-feature-section">
+      <div class="container text-center">
+        <h2 class="section-title text-primary-dark mb-5">
+          Meet Our Esteemed Mentors
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="mentor-card">
+              <img
+                src="./images/mvm.jpg"
+                class="mentor-img mb-3"
+                alt="Mentor 1"
+              />
+              <h4 class="mentor-name">Mr.M.Venu Madhav</h4>
+              <p class="mentor-title">Lead AI Scientist at TechCorp</p>
+              <p class="mentor-affiliation">
+                <i class="fas fa-university me-1"></i> IIT Bombay Alum
+              </p>
+              <span class="badge bg-success-bridge"
+                ><i class="fas fa-check-circle me-1"></i> Verified</span
+              >
+              <a
+                href="mentor-profile.html"
+                class="btn btn-sm btn-outline-primary-dark mt-3"
+                >View Profile</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="mentor-card">
+              <img
+                src="./images/ksv.jpg"
+                class="mentor-img mb-3"
+                alt="Mentor 2"
+              />
+              <h4 class="mentor-name">Mr. K.S.Vardhan</h4>
+              <p class="mentor-title">Product Manager at GlobalSoft</p>
+              <p class="mentor-affiliation">
+                <i class="fas fa-university me-1"></i> IIM Bangalore Alum
+              </p>
+              <span class="badge bg-success-bridge"
+                ><i class="fas fa-check-circle me-1"></i> Verified</span
+              >
+              <a href="#" class="btn btn-sm btn-outline-primary-dark mt-3"
+                >View Profile</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="mentor-card">
+              <img
+                src="./images/ram1.jpg"
+                class="mentor-img mb-3"
+                alt="Mentor 3"
+              />
+              <h4 class="mentor-name">Ms.E.Ramya</h4>
+              <p class="mentor-title">Senior Software Engineer at Innovate</p>
+              <p class="mentor-affiliation">
+                <i class="fas fa-university me-1"></i> NIT Warangal Alum
+              </p>
+              <span class="badge bg-success-bridge"
+                ><i class="fas fa-check-circle me-1"></i> Verified</span
+              >
+              <a
+                href="mentor-profile.html"
+                class="btn btn-sm btn-outline-primary-dark mt-3"
+                >View Profile</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="mentor-card">
+              <img
+                src="./images/vid.jpg"
+                class="mentor-img mb-3"
+                alt="Mentor 4"
+              />
+              <h4 class="mentor-name">Ms.D.Vidya sri</h4>
+              <p class="mentor-title">Data Scientist at DataFlow</p>
+              <p class="mentor-affiliation">
+                <i class="fas fa-university me-1"></i> VIT Vellore Alum
+              </p>
+              <span class="badge bg-success-bridge"
+                ><i class="fas fa-check-circle me-1"></i> Verified</span
+              >
+              <a
+                href="mentor-profile.html"
+                class="btn btn-sm btn-outline-primary-dark mt-3"
+                >View Profile</a
+              >
+            </div>
+          </div>
+        </div>
+        <a href="mentorlist.html" class="btn btn-accent-blue btn-lg mt-4"
+          >Explore All Mentors <i class="fas fa-chevron-right ms-2"></i
+        ></a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <i class="fas fa-graduation-cap me-2"></i> Guidance Bridge
+        </div>
+
+        <div class="footer-links">
+          <a href="#">Mentor List</a>
+          <a href="#">Dashboard</a>
+          <a href="#">Resources</a>
+          <a href="form.html">Sign In / Register</a>
+        </div>
+
+        <div class="footer-legal">
+          <p>&copy; 2024 Guidance Bridge. All Rights Reserved.</p>
+          <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <span>|</span>
+            <a href="#">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

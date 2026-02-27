@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced Sign In</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: url("./images/img5.png") no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .back-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(9, 9, 9, 0.8);
+        color: rgb(241, 149, 149);
+        padding: 12px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 17px;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 10;
+        box-shadow: 0 4px 6px rgba(49, 9, 9, 0.3);
+      }
+
+      .back-button:hover {
+        background: rgba(30, 183, 191, 0.9);
+        transform: translateY(-2px);
+      }
+
+      .container {
+        background: rgba(245, 223, 223, 0.85);
+        padding: 40px;
+        opacity: 0.85;
+        border-radius: 20px;
+        width: 450px;
+        text-align: center;
+        color: #0e0101;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        transform: translateY(0);
+        transition: transform 0.5s ease;
+        z-index: 5;
+      }
+
+      .container.animate {
+        animation: containerPop 0.5s ease;
+      }
+
+      @keyframes containerPop {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.03);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .container h2 {
+        margin-bottom: 25px;
+        font-size: 32px;
+        color: #1a1818;
+        position: relative;
+        display: inline-block;
+      }
+
+      .container h2:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: #09bae6;
+        border-radius: 2px;
+      }
+
+      .input-box {
+        margin-bottom: 20px;
+        text-align: left;
+        position: relative;
+      }
+
+      .input-box label {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #1a1818;
+        font-weight: 500;
+      }
+
+      .input-box input {
+        width: 100%;
+        padding: 16px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        outline: none;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .input-box input:focus {
+        border-color: #09bae6;
+        box-shadow: 0 0 0 3px rgba(9, 186, 230, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .input-box i {
+        position: absolute;
+        right: 15px;
+        top: 50px;
+        color: #777;
+        transition: all 0.3s ease;
+      }
+
+      .input-box input:focus + i {
+        color: #09bae6;
+        transform: scale(1.2);
+      }
+
+      .btn {
+        width: 160px;
+        padding: 14px;
+        background: #e63946;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: block;
+        margin: 25px auto 15px;
+        box-shadow: 0 4px 6px rgba(230, 57, 70, 0.3);
+      }
+
+      .btn:hover {
+        background: #09bae6;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 10px rgba(9, 186, 230, 0.4);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 6px rgba(9, 186, 230, 0.3);
+      }
+
+      .error {
+        color: #e63946;
+        font-size: 16px;
+        margin-top: 15px;
+        font-weight: 500;
+        min-height: 24px;
+      }
+
+      /* Animation for the input boxes */
+      @keyframes inputFocus {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .input-animate {
+        animation: inputFocus 0.4s ease;
+      }
+
+      /* Floating animation for the container */
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      .floating {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      /* Decorative elements */
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(30, 183, 191, 0.2);
+        z-index: -1;
+      }
+
+      .circle-1 {
+        width: 150px;
+        height: 150px;
+        top: 10%;
+        left: 15%;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .circle-2 {
+        width: 100px;
+        height: 100px;
+        bottom: 15%;
+        right: 15%;
+        animation: float 10s ease-in-out infinite;
+      }
+
+      .circle-3 {
+        width: 80px;
+        height: 80px;
+        top: 20%;
+        right: 20%;
+        animation: float 7s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Decorative circles -->
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="container floating">
+      <h2>Enter Details</h2>
+      <form id="loginForm">
+        <div class="input-box">
+          <label for="username">User Name</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+            required
+          />
+          <i class="fas fa-user"></i>
+        </div>
+
+        <div class="input-box">
+          <label for="password1">Password 1</label>
+          <input
+            type="password"
+            id="password1"
+            placeholder="Enter first password"
+            required
+          />
+          <i class="fas fa-lock"></i>
+        </div>
+
+        <div class="input-box">
+          <label for="password2">Password 2</label>
+          <input
+            type="password"
+            id="password2"
+            placeholder="Enter second password"
+            required
+          />
+          <i class="fas fa-lock"></i>
+        </div>
+
+        <button type="button" class="btn" onclick="validateLogin()">
+          <i class="fas fa-sign-in-alt"></i> Enter
+        </button>
+
+        <p class="error" id="errorMsg"></p>
+      </form>
+    </div>
+
+    <script>
+      // Fixed username and passwords
+      const correctUser = "Technova";
+      const correctPass1 = "123";
+      const correctPass2 = "123";
+
+      // Add animation when input is focused
+      document.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("focus", (e) => {
+          // Add animation to the input box
+          e.target.parentElement.classList.add("input-animate");
+
+          // Add animation to the container
+          document.querySelector(".container").classList.add("animate");
+
+          // Remove animation classes after animation completes
+          setTimeout(() => {
+            e.target.parentElement.classList.remove("input-animate");
+            document.querySelector(".container").classList.remove("animate");
+          }, 500);
+        });
+      });
+
+      function validateLogin() {
+        const username = document.getElementById("username").value.trim();
+        const pass1 = document.getElementById("password1").value.trim();
+        const pass2 = document.getElementById("password2").value.trim();
+        const errorMsg = document.getElementById("errorMsg");
+
+        if (
+          username === correctUser &&
+          pass1 === correctPass1 &&
+          pass2 === correctPass2
+        ) {
+          // Success animation
+          document.querySelector(".container").style.transform = "scale(1.05)";
+          document.body.style.background =
+            "linear-gradient(rgba(30, 183, 191, 0.7), rgba(30, 183, 191, 0.7)), url(https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80) no-repeat center center/cover";
+
+          setTimeout(() => {
+            window.location.href = "index1.html"; // Redirect to homepage
+          }, 600);
+        } else {
+          errorMsg.textContent = "Invalid username or password!";
+          // Shake animation for error
+          document.querySelector(".container").style.animation =
+            "shake 0.5s ease";
+          setTimeout(() => {
+            document.querySelector(".container").style.animation = "";
+          }, 500);
+        }
+      }
+
+      // Add event listener for form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Stop form refresh
+          validateLogin();
+        });
+
+      // Add keyframe for shake animation
+      const style = document.createElement("style");
+      style.innerHTML = `
+      @keyframes shake {
+        0% { transform: translateX(0); }
+        20% { transform: translateX(-10px); }
+        40% { transform: translateX(10px); }
+        60% { transform: translateX(-10px); }
+        80% { transform: translateX(10px); }
+        100% { transform: translateX(0); }
+      }
+    `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

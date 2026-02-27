@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guidance Bridge - Contact Support</title>
+
+    <link rel="stylesheet" href="contact.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section class="contact-section">
+      <div class="container">
+        <h2 class="section-title text-center">Connect With Our Support Team</h2>
+        <p class="text-center text-muted mb-5">
+          We're here to help you bridge your knowledge gap. Fill out the form
+          below.
+        </p>
+
+        <div class="contact-card-wrapper">
+          <div class="contact-card">
+            <div class="row">
+              <div class="col-left">
+                <h3 class="text-white mb-4">Need Immediate Help?</h3>
+                <p class="mb-3">
+                  <i class="fas fa-check-circle me-3"></i> Payment & Credit
+                  Support
+                </p>
+                <p class="mb-3">
+                  <i class="fas fa-check-circle me-3"></i> Mentor Verification
+                  Inquiry
+                </p>
+                <p class="mb-3">
+                  <i class="fas fa-check-circle me-3"></i> General Feedback
+                </p>
+
+                <div class="mt-4 pt-4 border-top border-light">
+                  <p class="mb-1">
+                    <i class="fas fa-envelope me-2"></i>
+                    support@guidancebridge.com
+                  </p>
+                  <p><i class="fas fa-phone-alt me-2"></i> +91-XXX-XXX-XXXX</p>
+                </div>
+              </div>
+
+              <div class="col-right">
+                <form action="#" method="POST" class="contact-form">
+                  <div class="row">
+                    <div class="col-md-6 form-group-floating mb-4">
+                      <input
+                        type="text"
+                        id="name"
+                        placeholder="Full Name"
+                        required
+                      />
+                      <label for="name">Full Name</label>
+                    </div>
+
+                    <div class="col-md-6 form-group-floating mb-4">
+                      <input
+                        type="email"
+                        id="email"
+                        placeholder="Email Address"
+                        required
+                      />
+                      <label for="email">Email Address</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group mb-4">
+                    <select class="form-select" id="subject" required>
+                      <option value="" disabled selected>
+                        Select the reason for contact...
+                      </option>
+                      <option value="mentor_inquiry">
+                        Mentor Suggestion / Feedback
+                      </option>
+                      <option value="credit_support">
+                        Credit / Payment Support
+                      </option>
+                      <option value="verification">
+                        Mentor Verification Status
+                      </option>
+                      <option value="general">General Inquiry</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group mb-5">
+                    <textarea
+                      id="message"
+                      rows="5"
+                      required
+                      placeholder="Tell us how we can help..."
+                    ></textarea>
+                    <label for="message">Message</label>
+                  </div>
+
+                  <button type="submit" class="btn btn-navy-submit">
+                    Send Message <i class="fas fa-paper-plane ms-2"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

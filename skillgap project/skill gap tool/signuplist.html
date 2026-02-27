@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registered Users - Guidance Bridge</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-light: #f8f9fa;
+        --primary-dark: #192a56;
+        --accent-blue: #007bff;
+        --accent-yellow: #ffc107;
+        --text-dark: #212529;
+        --shadow-light: rgba(0, 0, 0, 0.15);
+        --gradient-start: #e0f2f7;
+        --gradient-end: #f0f8fa;
+        --success-light: #d4edda;
+        --success-dark: #155724;
+        --warning-light: #fff3cd;
+        --warning-dark: #856404;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text-dark);
+        background: linear-gradient(
+          135deg,
+          var(--gradient-start) 0%,
+          var(--gradient-end) 100%
+        );
+        background-attachment: fixed;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        font-weight: 800;
+        font-size: 1.8rem;
+        color: var(--primary-dark);
+        text-decoration: none;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        color: var(--accent-blue);
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 20px;
+        background: var(--primary-dark);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background: #2c447a;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(25, 42, 86, 0.3);
+      }
+
+      .back-btn i {
+        margin-right: 8px;
+      }
+
+      h1 {
+        text-align: center;
+        margin: 30px 0;
+        color: var(--primary-dark);
+        font-weight: 800;
+        font-size: 2.5rem;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-box {
+        flex: 1;
+        min-width: 250px;
+        position: relative;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 12px 15px 12px 45px;
+        border: 1px solid #c9d2d9;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+      }
+
+      .filter-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 10px 20px;
+        background: white;
+        border: 1px solid #c9d2d9;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--primary-dark);
+        color: white;
+        border-color: var(--primary-dark);
+      }
+
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 30px 0;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+        margin-bottom: 10px;
+      }
+
+      .stat-label {
+        font-size: 1rem;
+        color: #6c757d;
+      }
+
+      .user-table-container {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 16px 20px;
+        text-align: left;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      th {
+        background-color: var(--primary-dark);
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      th:hover {
+        background-color: #2c447a;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
+
+      tr:hover {
+        background-color: #e9ecef;
+      }
+
+      .role-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .role-learner {
+        background-color: #e0f2f7;
+        color: #007bff;
+      }
+
+      .role-college {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+
+      .role-professional {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .no-users {
+        text-align: center;
+        padding: 40px;
+        color: #6c757d;
+      }
+
+      .no-users i {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: #c9d2d9;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .action-btn {
+        padding: 10px 20px;
+        background: white;
+        border: 1px solid #c9d2d9;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .action-btn.export {
+        background: var(--primary-dark);
+        color: white;
+      }
+
+      .action-btn.export:hover {
+        background: #2c447a;
+      }
+
+      .action-btn.clear {
+        background: #dc3545;
+        color: white;
+        border-color: #dc3545;
+      }
+
+      .action-btn.clear:hover {
+        background: #c82333;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .controls {
+          flex-direction: column;
+        }
+
+        .filter-buttons {
+          width: 100%;
+        }
+
+        .filter-btn {
+          flex: 1;
+          text-align: center;
+        }
+
+        th,
+        td {
+          padding: 12px 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a href="index.html" class="logo">
+          <i class="fas fa-graduation-cap"></i> Guidance Bridge
+        </a>
+        <a href="index1.html" class="back-btn">
+          <i class="fas fa-arrow-left"></i> Back
+        </a>
+      </header>
+
+      <h1>Registered Users</h1>
+
+      <div class="controls">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search users..." />
+        </div>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All Users</button>
+          <button class="filter-btn" data-filter="Learner">Learners</button>
+          <button class="filter-btn" data-filter="College Mentor">
+            College Mentors
+          </button>
+          <button class="filter-btn" data-filter="Professional Mentor">
+            Professional Mentors
+          </button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number" id="totalUsers">0</div>
+          <div class="stat-label">Total Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="learnerCount">0</div>
+          <div class="stat-label">Learners</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="collegeMentorCount">0</div>
+          <div class="stat-label">College Mentors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="professionalMentorCount">0</div>
+          <div class="stat-label">Professional Mentors</div>
+        </div>
+      </div>
+
+      <div class="user-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th data-sort="role">Role <i class="fas fa-sort"></i></th>
+              <th data-sort="name">Name <i class="fas fa-sort"></i></th>
+              <th data-sort="email">Email <i class="fas fa-sort"></i></th>
+              <th data-sort="details">Details <i class="fas fa-sort"></i></th>
+              <th data-sort="timestamp">
+                Registration Date <i class="fas fa-sort"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <!-- Users will be populated here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn export" onclick="exportToCSV()">
+          <i class="fas fa-download"></i> Export to CSV
+        </button>
+        <button class="action-btn clear" onclick="clearAllUsers()">
+          <i class="fas fa-trash"></i> Clear All Users
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load users from localStorage
+        loadUsers();
+
+        // Set up search functionality
+        document
+          .getElementById("searchInput")
+          .addEventListener("input", filterUsers);
+
+        // Set up filter buttons
+        document.querySelectorAll(".filter-btn").forEach((button) => {
+          button.addEventListener("click", function () {
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach((btn) => btn.classList.remove("active"));
+            this.classList.add("active");
+            filterUsers();
+          });
+        });
+
+        // Set up sorting
+        document.querySelectorAll("th[data-sort]").forEach((header) => {
+          header.addEventListener("click", function () {
+            sortTable(this.dataset.sort);
+          });
+        });
+      });
+
+      let allUsers = [];
+      let currentSort = { column: "timestamp", direction: "desc" };
+
+      function loadUsers() {
+        const usersJSON = localStorage.getItem("guidanceBridgeUsers");
+        allUsers = usersJSON ? JSON.parse(usersJSON) : [];
+
+        updateStats();
+        displayUsers(allUsers);
+      }
+
+      function updateStats() {
+        document.getElementById("totalUsers").textContent = allUsers.length;
+        document.getElementById("learnerCount").textContent = allUsers.filter(
+          (u) => u.role === "Learner"
+        ).length;
+        document.getElementById("collegeMentorCount").textContent =
+          allUsers.filter((u) => u.role === "College Mentor").length;
+        document.getElementById("professionalMentorCount").textContent =
+          allUsers.filter((u) => u.role === "Professional Mentor").length;
+      }
+
+      function displayUsers(users) {
+        const tbody = document.getElementById("usersTableBody");
+
+        if (users.length === 0) {
+          tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5">
+                            <div class="no-users">
+                                <i class="fas fa-users"></i>
+                                <h3>No users registered yet</h3>
+                                <p>Users will appear here once they sign up on the registration page.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+          return;
+        }
+
+        tbody.innerHTML = "";
+
+        users.forEach((user) => {
+          const row = document.createElement("tr");
+
+          // Determine role badge class
+          let roleClass = "";
+          if (user.role === "Learner") roleClass = "role-learner";
+          else if (user.role === "College Mentor") roleClass = "role-college";
+          else if (user.role === "Professional Mentor")
+            roleClass = "role-professional";
+
+          // Create details text based on role
+          let details = "";
+          if (user.role === "Learner") {
+            details = `Interest: ${user.interest}`;
+          } else if (user.role === "College Mentor") {
+            details = `CGPA: ${user.cgpa}`;
+          } else if (user.role === "Professional Mentor") {
+            details = `${user.company} | ${user.package}`;
+          }
+
+          row.innerHTML = `
+                    <td><span class="role-badge ${roleClass}">${user.role}</span></td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${details}</td>
+                    <td>${user.timestamp}</td>
+                `;
+
+          tbody.appendChild(row);
+        });
+      }
+
+      function filterUsers() {
+        const searchText = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const filter =
+          document.querySelector(".filter-btn.active").dataset.filter;
+
+        let filteredUsers = allUsers;
+
+        // Apply role filter
+        if (filter !== "all") {
+          filteredUsers = filteredUsers.filter((user) => user.role === filter);
+        }
+
+        // Apply search filter
+        if (searchText) {
+          filteredUsers = filteredUsers.filter(
+            (user) =>
+              user.name.toLowerCase().includes(searchText) ||
+              user.email.toLowerCase().includes(searchText) ||
+              (user.interest &&
+                user.interest.toLowerCase().includes(searchText)) ||
+              (user.cgpa && user.cgpa.toLowerCase().includes(searchText)) ||
+              (user.company &&
+                user.company.toLowerCase().includes(searchText)) ||
+              (user.package && user.package.toLowerCase().includes(searchText))
+          );
+        }
+
+        // Apply current sort
+        sortUsers(filteredUsers, currentSort.column, currentSort.direction);
+      }
+
+      function sortTable(column) {
+        // Toggle direction if clicking the same column
+        if (currentSort.column === column) {
+          currentSort.direction =
+            currentSort.direction === "asc" ? "desc" : "asc";
+        } else {
+          currentSort.column = column;
+          currentSort.direction = "asc";
+        }
+
+        filterUsers();
+      }
+
+      function sortUsers(users, column, direction) {
+        const sortedUsers = [...users].sort((a, b) => {
+          let valueA, valueB;
+
+          switch (column) {
+            case "role":
+              valueA = a.role;
+              valueB = b.role;
+              break;
+            case "name":
+              valueA = a.name;
+              valueB = b.name;
+              break;
+            case "email":
+              valueA = a.email;
+              valueB = b.email;
+              break;
+            case "details":
+              // For details, we'll use a combination of available fields
+              valueA = a.interest || a.cgpa || a.company || "";
+              valueB = b.interest || b.cgpa || b.company || "";
+              break;
+            case "timestamp":
+              valueA = new Date(a.timestamp);
+              valueB = new Date(b.timestamp);
+              break;
+            default:
+              valueA = a.timestamp;
+              valueB = b.timestamp;
+          }
+
+          if (valueA < valueB) return direction === "asc" ? -1 : 1;
+          if (valueA > valueB) return direction === "asc" ? 1 : -1;
+          return 0;
+        });
+
+        displayUsers(sortedUsers);
+      }
+
+      function exportToCSV() {
+        if (allUsers.length === 0) {
+          alert("No users to export");
+          return;
+        }
+
+        let csvContent =
+          "Role,Name,Email,Interest/CGPA/Company,Registration Date\n";
+
+        allUsers.forEach((user) => {
+          let details = "";
+          if (user.role === "Learner") details = user.interest;
+          else if (user.role === "College Mentor") details = user.cgpa;
+          else if (user.role === "Professional Mentor")
+            details = `${user.company}, ${user.package}`;
+
+          csvContent += `"${user.role}","${user.name}","${user.email}","${details}","${user.timestamp}"\n`;
+        });
+
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", "guidance_bridge_users.csv");
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      function clearAllUsers() {
+        if (
+          confirm(
+            "Are you sure you want to delete all registered users? This action cannot be undone."
+          )
+        ) {
+          localStorage.removeItem("guidanceBridgeUsers");
+          loadUsers();
+        }
+      }
+    </script>
+  </body>
+</html>

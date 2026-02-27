@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circle Buttons</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: url("./images/img5.png") no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        position: relative;
+      }
+
+      .back-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 24px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .back-button:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      .container {
+        display: flex;
+        gap: 60px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 30px 50px;
+        border-radius: 15px;
+      }
+
+      .circle-btn {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #f02f38, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 64px;
+        font-weight: bold;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .circle-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      }
+
+      .label {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+      }
+
+      .btn-wrapper {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="adminindex.html" class="back-button">←</a>
+
+    <div class="container">
+      <div class="btn-wrapper">
+        <button class="circle-btn" onclick="window.open( 'signuplist.html');">
+          A
+        </button>
+        <div class="label">ALREADY EXISTS</div>
+      </div>
+      <div class="btn-wrapper">
+        <button class="circle-btn" onclick="window.open( 'newusers.html');">
+          N
+        </button>
+        <div class="label">NEW USERS</div>
+      </div>
+    </div>
+
+    <script>
+      // You can replace the URLs with your actual pages
+      // "ssra" and "dra" are tab/window names
+    </script>
+  </body>
+</html>
